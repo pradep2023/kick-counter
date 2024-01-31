@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baby Kick Tracker</title>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css' rel='stylesheet' />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.css' rel='stylesheet' />
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Baby Kick Tracker</h1>
+        <div class="tabs">
+            <button class="tablink" onclick="openTab(event, 'Counter')">Kick Counter</button>
+            <button class="tablink" onclick="openTab(event, 'Log')">Kick Log</button>
+        </div>
+        
+        <div id="Counter" class="tabcontent">
+            <button id="recordKick">Record Kick</button>
+            <div class="kickCounts">
+                <div id="morning">Morning: 0</div>
+                <div id="afternoon">Afternoon: 0</div>
+                <div id="night">Night: 0</div>
+            </div>
+            <div id="calendar"></div>
+        </div>
+        
+        <div id="Log" class="tabcontent">
+            <table id="kickLog">
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Kick Count</th>
+                </tr>
+                <!-- Kick log entries will be inserted here -->
+            </table>
+        </div>
+    </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/interaction/main.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js'></script>
+    <script src="script.js"></script>
+</body>
+</html>

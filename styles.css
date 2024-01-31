@@ -1,0 +1,135 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    padding-bottom: 20px; /* Ensure there's space at the bottom */
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#recordKick {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: white;
+    background: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background 0.3s;
+}
+
+#recordKick:hover {
+    background: #0056b3;
+}
+
+.kickCounts {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.kickCounts > div {
+    padding: 20px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.kickCounts > div:first-child {
+    margin-left: 0;
+}
+
+.kickCounts > div:last-child {
+    margin-right: 0;
+}
+
+#calendar {
+    margin-top: 20px;
+    margin-bottom: 20px; /* Add space above and below the calendar */
+}
+
+@media (max-width: 600px) {
+    .kickCounts {
+        flex-direction: column;
+    }
+
+    .kickCounts > div {
+        margin: 10px 0;
+    }
+  
+
+}
+
+
+/* Previous CSS ... */
+
+/* Tabs styling */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #007bff;
+}
+
+.tablink {
+    background-color: #f9f9f9;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: background-color 0.3s, border-color 0.3s;
+    font-size: 17px;
+    margin-right: 4px; /* Space between tabs */
+    border-radius: 5px 5px 0 0;
+    border: 2px solid transparent;
+}
+
+.tablink:hover, .tablink.active {
+    background-color: #fff;
+    border-color: #007bff;
+    border-bottom-color: transparent; /* Make the active tab look part of the content area */
+}
+
+.tabcontent {
+    display: none;
+    padding: 20px;
+    border: 2px solid #007bff;
+    border-top: none;
+    margin-top: -2px; /* Align with the bottom of the tabs */
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
