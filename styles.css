@@ -1,135 +1,180 @@
+/* General Body Styles */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #f4f4f4;
+  --font-family: 'Arial', sans-serif;
+  --line-height: 1.6;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  font-family: var(--font-family);
+  background-color: var(--secondary-color);
+  color: #333;
+  line-height: var(--line-height);
+  padding: 20px;
+  margin: 0;
+  font-size: 16px;
+}
+
+.main-header {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px 40px;
+  margin-bottom: 40px;
+}
+
+.main-header h1 {
+  margin: 0;
+  color: var(--primary-color);
+  font-size: 24px;
 }
 
 .container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px;
-    padding-bottom: 20px; /* Ensure there's space at the bottom */
-    box-sizing: border-box;
+  max-width: 1200px;
+  margin: auto;
+  overflow: auto;
+  padding: 0 40px;
 }
 
-h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#recordKick {
-    padding: 10px 20px;
-    font-size: 18px;
-    color: white;
-    background: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 20px;
-    transition: background 0.3s;
-}
-
-#recordKick:hover {
-    background: #0056b3;
-}
-
-.kickCounts {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.kickCounts > div {
-    padding: 20px;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    flex: 1;
-    margin: 0 10px;
-}
-
-.kickCounts > div:first-child {
-    margin-left: 0;
-}
-
-.kickCounts > div:last-child {
-    margin-right: 0;
-}
-
-#calendar {
-    margin-top: 20px;
-    margin-bottom: 20px; /* Add space above and below the calendar */
-}
-
-@media (max-width: 600px) {
-    .kickCounts {
-        flex-direction: column;
-    }
-
-    .kickCounts > div {
-        margin: 10px 0;
-    }
-  
-
-}
-
-
-/* Previous CSS ... */
-
-/* Tabs styling */
 .tabs {
-    display: flex;
-    border-bottom: 2px solid #007bff;
+  overflow: auto;
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 40px 0;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tablink {
-    background-color: #f9f9f9;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    padding: 14px 16px;
-    transition: background-color 0.3s, border-color 0.3s;
-    font-size: 17px;
-    margin-right: 4px; /* Space between tabs */
-    border-radius: 5px 5px 0 0;
-    border: 2px solid transparent;
+  display: inline-block;
+  padding: 15px 30px;
+  cursor: pointer;
+  background: #fff;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin: 0 10px;
 }
 
-.tablink:hover, .tablink.active {
-    background-color: #fff;
-    border-color: #007bff;
-    border-bottom-color: transparent; /* Make the active tab look part of the content area */
+.tablink.active,
+.tablink:hover {
+  background-color: var(--primary-color);
+  color: #fff;
 }
 
-.tabcontent {
-    display: none;
-    padding: 20px;
-    border: 2px solid #007bff;
-    border-top: none;
-    margin-top: -2px; /* Align with the bottom of the tabs */
+/* Record Kick Button Enhancement */
+#recordKick {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  padding: 15px;
+  font-size: 18px;
+  color: white;
+  background: var(--primary-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+  margin: 20px auto;
+  font-weight: bold;
 }
 
-/* Table styling */
+#recordKick:hover {
+  background: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+}
+
+/* Kick Count Styles */
+.kickCounts {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.kickCounts > div {
+  flex: 1;
+  margin: 0 10px;
+  padding: 20px;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.unnecessary-element {
+  display: none; /* Hide an element that is not needed */
+}
+
+/* Table Styles */
 table {
-    width: 100%;
-    border-collapse: collapse;
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
 }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+th,
+td {
+  padding: 15px;
+  border: 1px solid #ddd;
 }
 
 th {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Calendar Styles */
+#calendar {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.fc-daygrid-event {
+  margin-top: 0;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 600px) {
+  .kickCounts,
+  .tablink,
+  #recordKick {
+    flex-direction: column;
+  }
+
+  .kickCounts > div,
+  .tablink,
+  #recordKick {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .main-header h1,
+  .tablink {
+    text-align: center;
+  }
+
+  .container,
+  .main-header {
+    padding: 10px;
+  }
+
+  .tablink {
+    padding: 10px;
+    font-size: 16px;
+  }
 }
