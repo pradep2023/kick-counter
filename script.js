@@ -100,7 +100,7 @@ function openTab(evt, tabName) {
   function updateCalendarEvent(date) {
     let event = calendar.getEventById(date);
     if (event) {
-      event.setProp('title', `Kicks: ${kickData[date].total}`);
+      event.setProp('title', `${kickData[date].total}`);
     } else {
       calendar.addEvent({
         id: date,
