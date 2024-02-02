@@ -1,57 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Baby Kick Tracker</title>
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css' rel='stylesheet' />
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.css' rel='stylesheet' />
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baby Kick Tracker</title>
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css' rel='stylesheet' />
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.css' rel='stylesheet' />
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="main-header">
-        <h1>Baby Kick Tracker</h1>
-    </header>
-    <div class="container">
-        <nav class="tabs">
-            <button class="tablink" data-tab="Counter">Kick Counter</button>
-            <button class="tablink" data-tab="Log">Kick Log</button>
-            <button class="tablink" data-tab="Calendar">Calendar</button>
+  <header class="main-header">
+    <h1>Baby Kick Tracker</h1>
+  </header>
+  <div class="container">
+    <nav class="tabs">
+      <button class="tablink active" data-tab="Counter">Kick Counter</button>
+      <button class="tablink" data-tab="Log">Kick Log</button>
+      <button class="tablink" data-tab="Calendar">Calendar</button>
+    </nav>
+     
+    <section id="Counter" class="tabcontent">
+      <button id="recordKick">Record Kick</button>
+      <div class="kickCounts">
+        <div id="morning">Morning: 0</div>
+        <div id="afternoon">Afternoon: 0</div>
+        <div id="night">Night: 0</div>
+      </div>
+    </section>
+     
+    <section id="Log" class="tabcontent">
+      <table id="kickLog">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Kick Count</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
 
-        </nav>
-        
-        <section id="Counter" class="tabcontent">
-            <button id="recordKick">Record Kick</button>
-            <div class="kickCounts">
-                <div id="morning">Morning: 0</div>
-                <div id="afternoon">Afternoon: 0</div>
-                <div id="night">Night: 0</div>
-            </div>
-        </section>
-        
-        <section id="Log" class="tabcontent">
-            <table id="kickLog">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Kick Count</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Kick log entries will be inserted here -->
-                </tbody>
-            </table>
-        </section>
-
-        <section id="Calendar" class="tabcontent">
-            <div id="calendar"></div>
-        </section>
-    </div>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/interaction/main.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js'></script>
-    <script src="script.js"></script>
-
+    <section id="Calendar" class="tabcontent">
+      <div id="calendar"></div>
+    </section>
+  </div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/interaction/main.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js'></script>
+  <script src="script.js"></script>
 </body>
 </html>
