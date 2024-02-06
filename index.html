@@ -1,53 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Baby Kick Tracker</title>
-  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css' rel='stylesheet' />
-  <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.css' rel='stylesheet' />
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baby Kick Tracker</title>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css' rel='stylesheet' />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.css' rel='stylesheet' />
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="main-header">
-    <h1>Baby Kick Tracker</h1>
-  </header>
-  <div class="container">
-    <nav class="tabs">
-      <button class="tablink active" data-tab="Counter">Kick Counter</button>
-      <button class="tablink" data-tab="Log">Kick Log</button>
-      <button class="tablink" data-tab="Calendar">Calendar</button>
-    </nav>
-     
-    <section id="Counter" class="tabcontent">
-      <button id="recordKick">Record Kick</button>
-      <div class="kickCounts">
-        <div id="morning">Morning: 0</div>
-        <div id="afternoon">Afternoon: 0</div>
-        <div id="night">Night: 0</div>
-      </div>
-    </section>
-     
-    <section id="Log" class="tabcontent">
-      <table id="kickLog">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Kick Count</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </section>
+    <div class="container">
+        <h1>Baby Kick Tracker</h1>
+        <div class="tabs">
+            <button class="tablink" onclick="openTab(event, 'Counter')">Kick Counter</button>
+            <button class="tablink" onclick="openTab(event, 'Log')">Kick Log</button>
+        </div>
+        
+        <div id="Counter" class="tabcontent">
+            <button id="recordKick">Record Kick</button>
+            <div class="kickCounts">
+                <div id="morning">Morning: 0</div>
+                <div id="afternoon">Afternoon: 0</div>
+                <div id="night">Night: 0</div>
+            </div>
+            <div id="calendar"></div>
+        </div>
+        
+        <div id="Log" class="tabcontent">
+            <table id="kickLog">
+                <tr>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Kick Count</th>
+                </tr>
+                <!-- Kick log entries will be inserted here -->
+            </table>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    <script>
+        // TODO: Replace the following with your app's Firebase project configuration
+          const firebaseConfig = {
+    apiKey: "AIzaSyBX0dKH1lWWf9M_s7q9hv9lwJiY2DvYw6Q",
+    authDomain: "kickcounter-ce447.firebaseapp.com",
+    projectId: "kickcounter-ce447",
+    storageBucket: "kickcounter-ce447.appspot.com",
+    messagingSenderId: "288336149064",
+    appId: "1:288336149064:web:177d9a6584074c4cf9367d",
+    measurementId: "G-8TTHSCR40M"
+  };
 
-    <section id="Calendar" class="tabcontent">
-      <div id="calendar"></div>
-    </section>
-  </div>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/interaction/main.min.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js'></script>
-  <script src="script.js"></script>
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // ... Rest of your JavaScript code ...
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/interaction/main.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js'></script>
+    <script src="script.js"></script>
 </body>
 </html>
