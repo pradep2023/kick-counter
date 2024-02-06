@@ -1,184 +1,193 @@
-/* General Body Styles */
-:root {
- --primary-color: #007bff;
- --secondary-color: #f4f4f4;
- --font-family: 'Arial', sans-serif;
- --line-height: 1.6;
-}
-
+/* General Styles */
 body {
- font-family: var(--font-family);
- background-color: var(--secondary-color);
- color: #333;
- line-height: var(--line-height);
- padding: 20px;
- margin: 0;
- font-size: 16px;
-}
-
-.main-header {
- background-color: #fff;
- box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
- padding: 20px 40px;
- margin-bottom: 40px;
-}
-
-.main-header h1 {
- margin: 0;
- color: var(--primary-color);
- font-size: 24px;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
 }
 
 .container {
- max-width: 1200px;
- margin: auto;
- overflow: auto;
- padding: 0 40px;
+  max-width: 800px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  /* Ensuring padding doesn't cause horizontal scroll on mobile */
+  box-sizing: border-box;
 }
 
+h1 {
+  color: #007bff;
+  text-align: center;
+  margin-top: 0; /* Remove default margin */
+}
+
+/* Tab Link Styles */
 .tabs {
- display: flex;
- justify-content: center;
- align-items: center;
- margin-bottom: 40px;
- background-color: #fff;
- box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  white-space: nowrap; /* Keep tabs in a single line */
+  overflow-x: auto; /* Make tabs scrollable horizontally */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS devices */
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.tabs::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari and Opera */
 }
 
 .tablink {
- padding: 15px 30px;
- cursor: pointer;
- background: #fff;
- color: var(--primary-color);
- text-transform: uppercase;
- font-weight: bold;
- transition: background-color 0.3s ease;
- margin: 0 10px;
+  background-color: inherit;
+  float: none; /* Don't float tabs, let them be inline */
+  display: inline-block; /* Display tabs inline */
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 16px 16px; /* Increase padding for a larger touch area */
+  transition: 0.3s;
+  font-size: 16px; /* Adjust font size for better readability */
+  box-sizing: border-box;
+  text-align: center;
 }
 
-.tablink:hover,
+.tablink:hover {
+  background-color: #ddd;
+}
+
+/* Style for active/current tab */
 .tablink.active {
- background-color: var(--primary-color);
- color: #fff;
+  background-color: #007bff;
+  color: white;
 }
 
-.tabcontent {
- display: none;
-}
 
-.tabcontent.active {
- display: block;
-}
-
-/* Record Kick Button Enhancement */
 #recordKick {
- display: block;
- width: 100%;
- max-width: 200px;
- padding: 15px;
- font-size: 18px;
- color: white;
- background: var(--primary-color);
- border: none;
- border-radius: 5px;
- cursor: pointer;
- transition: background 0.3s, box-shadow 0.3s;
- box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
- margin: 20px auto;
- font-weight: bold;
+  padding: 12px 24px; /* Larger padding for a bigger touch target */
+  font-size: 18px; /* Large font size for better readability */
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px auto; /* Center the button with automatic horizontal margins */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+  display: block; /* Center button */
+  width: auto; /* Let the button size according to its content */
+  max-width: 90%; /* Prevent the button from stretching too wide on larger screens */
 }
 
 #recordKick:hover {
- background: #0056b3;
- box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+  background-color: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
 }
 
-/* Kick Count Styles */
+
+/* Kick Counts Styles */
 .kickCounts {
- display: flex;
- justify-content: space-between;
- margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .kickCounts > div {
- flex: 1;
- margin: 0 10px;
- padding: 20px;
- text-align: center;
- background: #fff;
- box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
- border-radius: 5px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  flex-basis: calc(33.333% - 10px); /* Equal width with some margin */
+  text-align: center;
+  /* Ensure no overflow on small screens */
+  box-sizing: border-box;
 }
 
-.unnecessary-element {
- display: none; /* Hide an element that is not needed */
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+  .tablink, .kickCounts > div {
+    width: 100%; /* Full width on smaller screens */
+    margin-bottom: 10px;
+    /* Remove float for small screens to stack tabs vertically */
+    float: none;
+  }
+
+  .kickCounts {
+    flex-direction: column;
+  }
+
+  .container {
+    /* Reduce padding on smaller screens */
+    padding: 10px;
+  }
 }
 
 /* Table Styles */
-table {
- width: 100%;
- border-collapse: collapse;
- background: #fff;
- box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
- margin-bottom: 40px;
-}
-
-th,
-td {
- padding: 15px;
- border: 1px solid #ddd;
-}
-
-th {
- background-color: #f2f2f2;
- text-align: left;
-}
-
-tr:nth-child(even) {
- background-color: #f9f9f9;
-}
-
-tr:hover {
- background-color: #f1f1f1;
-}
-
-/* Calendar Styles */
-#calendar {
- max-width: 1200px;
- margin: 0 auto;
-}
-
-.fc-daygrid-event {
- margin-top: 0;
-}
-
-/* Mobile Responsive Adjustments */
-@media (max-width: 600px) {
- .kickCounts,
- .tablink,
- #recordKick {
-  flex-direction: column;
- }
-
- .kickCounts > div,
- .tablink,
- #recordKick {
+#kickLog {
   width: 100%;
-  margin-bottom: 10px;
- }
+  margin-top: 20px;
+  border-collapse: collapse;
+}
 
- .main-header h1,
- .tablink {
-  text-align: center;
- }
+#kickLog th, #kickLog td {
+  text-align: left;
+  padding: 12px;
+  border: 1px solid #ddd;
+}
 
- .container,
- .main-header {
-  padding: 10px;
- }
+#kickLog th {
+  background-color: #f2f2f2;
+}
 
- .tablink {
-  padding: 10px;
-  font-size: 16px;
- }
+#kickLog tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#kickLog tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Calendar Styles - Making sure the calendar fits nicely on mobile */
+@media (max-width: 600px) {
+  .fc .fc-view-container {
+    /* Adjust calendar container styles for mobile */
+  }
+  .fc .fc-toolbar {
+    /* Adjust calendar toolbar styles for mobile */
+    font-size: 14px; /* Example: Smaller text on mobile */
+  }
+  .fc .fc-day-grid, .fc .fc-time-grid {
+    /* Adjust day and time grid styles for mobile */
+  }
+  .fc .fc-day-top {
+    /* Adjust styles for the day top area for mobile */
+    padding: 2px; /* Example: Less padding on mobile */
+    font-size: 12px; /* Example: Smaller font size on mobile */
+  }
+  .fc .fc-day {
+    /* Adjust styles for each day cell for mobile */
+  }
+  .fc .fc-content-skeleton {
+    /* Adjust the content skeleton for mobile */
+  }
+  .fc .fc-event {
+    /* Adjust event styles for mobile */
+    font-size: 10px; /* Example: Smaller font size for events on mobile */
+  }
+  .fc .fc-event .fc-time, .fc .fc-event .fc-title {
+    /* Adjust time and title within events for mobile */
+    padding: 1px 2px; /* Example: Smaller padding on mobile */
+  }
+  .fc button {
+    /* Adjust button sizes for mobile */
+    padding: 5px; /* Example: Smaller padding for buttons on mobile */
+    font-size: 14px; /* Example: Smaller font size for buttons on mobile */
+  }
+  
+  /* Responsive Adjustments for Tabs */
+@media (max-width: 600px) {
+  .tablink {
+    padding: 16px 12px; /* Slightly reduce side padding on very small screens */
+    font-size: 15px; /* Slightly reduce font size on very small screens */
+  }
+  /* Add any additional style adjustments for other calendar elements */
 }
