@@ -5,6 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const nightCount = document.getElementById('night');
     const kickLogTable = document.getElementById('kickLog');
 	
+	// Adjusted to correctly handle local time
+		function getCurrentDate() {
+			let now = new Date();
+			now.setMinutes(now.getMinutes() - now.getTimezoneOffset()); // Adjust for local timezone
+			let year = now.getFullYear();
+			let month = ('0' + (now.getMonth() + 1)).slice(-2); // Months are 0-based
+			let day = ('0' + now.getDate()).slice(-2);
+			return `${year}-${month}-${day}`;
+		}
+
+    let currentDate = getCurrentDate();
+	
+	
 	// Fetch and display the initial data, then update period counts for the current date
     refreshData().then(() => {
         console.log('Data refreshed and UI should be updated.');
@@ -36,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         plugins: ['interaction', 'dayGrid'],
-        defaultDate: new Date().toISOString().split('T')[0],
+        defaultDate: currentDate, // Use currentDate set to local time
         editable: true,
         eventLimit: true, // allow "more" link when too many events
         events: [],
@@ -62,16 +75,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// Add a new document for the individual kick with the current time
 		batch.set(eventRef, {
-			time: new Date().toLocaleTimeString(),
+			time: new Date().toLocaleTimeString(), // Keep for backward compatibility
+			timestamp: firebase.firestore.FieldValue.serverTimestamp(), // New sortable field
 			period: period
 		});
 
 		// Commit the batch
 		return batch.commit();
-	}
+	}	
 
-
-	   function getKicksByDate(date) {
+	function getKicksByDate(date) {
 		const kicksRef = db.collection('kicks').doc(date);
 		const eventsRef = kicksRef.collection('events');
 
@@ -79,18 +92,27 @@ document.addEventListener('DOMContentLoaded', () => {
 			.then((querySnapshot) => {
 				const events = [];
 				querySnapshot.forEach((doc) => {
-					events.push(doc.data());
+					const event = doc.data();
+					// Only add to events if timestamp is present and is a Firestore timestamp
+					if (event.timestamp && event.timestamp instanceof firebase.firestore.Timestamp) {
+						events.push({
+							...event,
+							sortableTime: event.timestamp.toDate().getTime() // Convert timestamp to JavaScript Date
+						});
+					}
 				});
-				return events;
-			})
+				// Sort events by sortableTime in descending order
+				// Sort the events in descending order based on the sortableTime
+      events.sort((a, b) => b.sortableTime - a.sortableTime);
+      return events; // The sorted events with timestamps
+		 })
 			.catch((error) => {
-				console.log("Error getting documents:", error);
+				console.error("Error getting documents:", error);
 			});
 	}
 
-
 	recordKickButton.addEventListener('click', () => {
-        const currentDate = new Date().toISOString().split('T')[0];
+        const currentDate = getCurrentDate(); // Refresh currentDate every time the button is clicked
         const currentTime = new Date();
         const hour = currentTime.getHours();
         let period;
@@ -115,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
         kickData[currentDate].total++;
 
         // Add a new entry to the kick log table
-        addKickLogEntry(currentDate, currentTime.toLocaleTimeString(), kickData[currentDate][period]);
+        addKickLogEntry(currentDate, currentTime.toLocaleTimeString(), period);
 
         // Update the calendar with the new total
         updateCalendarEvent(currentDate);
@@ -144,19 +166,19 @@ document.addEventListener('DOMContentLoaded', () => {
         element.innerText = element.innerText.split(": ")[0] + ": " + (currentCount + 1);
     }
 
-	function addKickLogEntry(date, time, count) {
-        let row = kickLogTable.insertRow();
+	function addKickLogEntry(date, time, period) {
+        let row = kickLogTable.insertRow(1); // insertRow(1) will insert just after the header row
         let dateCell = row.insertCell(0);
         let timeCell = row.insertCell(1);
-        let countCell = row.insertCell(2);
+        let periodCell = row.insertCell(2);
 
         dateCell.innerText = date;
         timeCell.innerText = time;
-        countCell.innerText = count;
+        periodCell.innerText = period;
     }
 
 	function updateCalendarEvent(date, totalKicks) {
-		let event = calendar.getEventById(date);
+		let event = calendar.getEventById(date); 
 		if (event) {
 			// Event exists, update it
 			event.setProp('title', `Kicks: ${totalKicks}`);
@@ -172,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 	
 	function refreshData() {
-		const currentDate = new Date().toISOString().split('T')[0];
+		const currentDate = getCurrentDate();
 		return db.collection('kicks').get().then((querySnapshot) => {
 			querySnapshot.forEach((doc) => {
 				const data = doc.data();
@@ -185,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 
 				// Now we fetch individual kick events for the date
-				return doc.ref.collection('events').get().then((eventsSnapshot) => {
+				return doc.ref.collection('events').orderBy('time', 'asc').get().then((eventsSnapshot) => {
 					const events = [];
 					eventsSnapshot.forEach(eventDoc => {
 						events.push(eventDoc.data());
@@ -203,31 +225,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 	function updateKickLogTable(date, events) {
-		// Clear the existing table contents
-		kickLogTable.innerHTML = "";
+		// Clear the existing table contents, except for the header
+		while (kickLogTable.rows.length > 1) {
+			kickLogTable.deleteRow(1);
+		}
 
-		// Re-add the header row
-		let header = kickLogTable.createTHead();
-		let headerRow = header.insertRow(0);
-		let dateHeader = headerRow.insertCell(0);
-		let timeHeader = headerRow.insertCell(1);
-		let periodHeader = headerRow.insertCell(2);
-		dateHeader.innerText = 'Date';
-		timeHeader.innerText = 'Time';
-		periodHeader.innerText = 'Period';
-
-		// Add new rows for each kick event
+		// Re-add the sorted events to the kick log table
 		events.forEach(event => {
-			let row = kickLogTable.insertRow();
-			let dateCell = row.insertCell(0);
-			let timeCell = row.insertCell(1);
-			let periodCell = row.insertCell(2);
-			dateCell.innerText = date;
-			timeCell.innerText = event.time;
-			periodCell.innerText = event.period;
+			// Check if the 'time' field is a Firestore timestamp
+			if (event.timestamp && event.timestamp instanceof firebase.firestore.Timestamp) {
+				let timeString = event.timestamp.toDate().toLocaleTimeString();
+				addKickLogEntry(date, timeString, event.period);
+			} else {
+				// If the event does not have a timestamp field, don't add it to the table
+				console.log('Skipped an entry without a timestamp:', event);
+			}
 		});
 	}
-
 
 	function updatePeriodCounts(date) {
 		const kicksRef = db.collection('kicks').doc(date);
