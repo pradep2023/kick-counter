@@ -5,15 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const nightCount = document.getElementById('night');
     const kickLogTable = document.getElementById('kickLog');
 	
+  
 	// Adjusted to correctly handle local time
-		function getCurrentDate() {
-			let now = new Date();
-			now.setMinutes(now.getMinutes() - now.getTimezoneOffset()); // Adjust for local timezone
-			let year = now.getFullYear();
-			let month = ('0' + (now.getMonth() + 1)).slice(-2); // Months are 0-based
-			let day = ('0' + now.getDate()).slice(-2);
-			return `${year}-${month}-${day}`;
-		}
+  function getCurrentDate() {
+      const now = new Date();
+      const localDate = new Date(now.getTime() - (now.getTimezoneOffset() * 60000));
+      return localDate.toISOString().split('T')[0];
+  }
+
 
     let currentDate = getCurrentDate();
 	
@@ -84,6 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		return batch.commit();
 	}	
 
+
+
 	function getKicksByDate(date) {
 		const kicksRef = db.collection('kicks').doc(date);
 		const eventsRef = kicksRef.collection('events');
@@ -110,6 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				console.error("Error getting documents:", error);
 			});
 	}
+
+
 
 	recordKickButton.addEventListener('click', () => {
         const currentDate = getCurrentDate(); // Refresh currentDate every time the button is clicked
@@ -242,6 +245,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	}
+
+
+
+
 
 	function updatePeriodCounts(date) {
 		const kicksRef = db.collection('kicks').doc(date);
